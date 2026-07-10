@@ -1,0 +1,227 @@
+services:
+  - class: org.yamcs.archive.XtceTmRecorder
+  - class: org.yamcs.archive.ParameterRecorder
+  - class: org.yamcs.archive.AlarmRecorder
+  - class: org.yamcs.archive.EventRecorder
+  - class: org.yamcs.archive.ReplayServer
+  - class: org.yamcs.parameter.SystemParametersService
+    args:
+      producers:
+        - diskstats
+        - fs
+        - jvm
+        - loadavg
+        - rocksdb
+  - class: org.yamcs.ProcessorCreatorService
+    args:
+      name: realtime
+      type: realtime
+  - class: org.yamcs.archive.CommandHistoryRecorder
+  - class: org.yamcs.parameter.ParameterRetrievalService
+    args:
+      parallelRetrievals: 8
+      procName: realtime
+      parameterCache:
+        enabled: true
+        cacheAll: true      # cache only requested params; see memory note below
+        duration: 300        # seconds of history to keep — 2×300s fill window
+        maxNumEntries: 20000 # cap per parameter; must exceed peakHz × duration
+  - class: org.yamcs.parameterarchive.ParameterArchive
+    args:
+      maxSegmentSize: 500
+      realtimeFiller:
+        enabled: false
+        processorName: realtime
+        sortingThreshold: 60000  # 60 seconds in milliseconds
+        flushInterval: 300
+      backFiller:
+        enabled: true
+        warmupTime: 10
+        streamUpdateFillPolicy:
+          - dataAge: 0
+            quietThreshold: -1  # With our packet rate, the stream is never quiet - disable
+            fillFrequency: 600  # was 90
+          - dataAge: 2.0            # 2 h–7 d: never auto-rebuild
+            quietThreshold: -1
+            fillFrequency: -1
+  - class: org.yamcs.timeline.TimelineService
+  - class: org.yamcs.plists.ParameterListService
+dataLinks:
+  - name: stressor_t0_tm
+    class: org.yamcs.tctm.UdpTmDataLink
+    port: 9900
+    maxLength: 256
+    stream: "tm_stressor_t0"
+    packetPreprocessorClassName: org.yamcs.pus.PusPacketPreprocessor
+    packetPreprocessorArgs:
+      errorDetection:
+        type: CRC-16-CCIIT
+      pktTimeOffset: 13
+      timePktTimeOffset: 7
+      timeEncoding:
+        type: CUC
+        epoch: CUSTOM
+        epochUTC: "1958-01-01T00:00:00Z"
+        timeIncludesLeapSeconds: false
+  - name: stressor_t1_tm
+    class: org.yamcs.tctm.UdpTmDataLink
+    port: 9901
+    maxLength: 256
+    stream: "tm_stressor_t1"
+    packetPreprocessorClassName: org.yamcs.pus.PusPacketPreprocessor
+    packetPreprocessorArgs:
+      errorDetection:
+        type: CRC-16-CCIIT
+      pktTimeOffset: 13
+      timePktTimeOffset: 7
+      timeEncoding:
+        type: CUC
+        epoch: CUSTOM
+        epochUTC: "1958-01-01T00:00:00Z"
+        timeIncludesLeapSeconds: false
+  - name: stressor_t2_tm
+    class: org.yamcs.tctm.UdpTmDataLink
+    port: 9902
+    maxLength: 256
+    stream: "tm_stressor_t2"
+    packetPreprocessorClassName: org.yamcs.pus.PusPacketPreprocessor
+    packetPreprocessorArgs:
+      errorDetection:
+        type: CRC-16-CCIIT
+      pktTimeOffset: 13
+      timePktTimeOffset: 7
+      timeEncoding:
+        type: CUC
+        epoch: CUSTOM
+        epochUTC: "1958-01-01T00:00:00Z"
+        timeIncludesLeapSeconds: false
+  - name: stressor_t3_tm
+    class: org.yamcs.tctm.UdpTmDataLink
+    port: 9903
+    maxLength: 256
+    stream: "tm_stressor_t3"
+    packetPreprocessorClassName: org.yamcs.pus.PusPacketPreprocessor
+    packetPreprocessorArgs:
+      errorDetection:
+        type: CRC-16-CCIIT
+      pktTimeOffset: 13
+      timePktTimeOffset: 7
+      timeEncoding:
+        type: CUC
+        epoch: CUSTOM
+        epochUTC: "1958-01-01T00:00:00Z"
+        timeIncludesLeapSeconds: false
+  - name: stressor_t4_tm
+    class: org.yamcs.tctm.UdpTmDataLink
+    port: 9904
+    maxLength: 256
+    stream: "tm_stressor_t4"
+    packetPreprocessorClassName: org.yamcs.pus.PusPacketPreprocessor
+    packetPreprocessorArgs:
+      errorDetection:
+        type: CRC-16-CCIIT
+      pktTimeOffset: 13
+      timePktTimeOffset: 7
+      timeEncoding:
+        type: CUC
+        epoch: CUSTOM
+        epochUTC: "1958-01-01T00:00:00Z"
+        timeIncludesLeapSeconds: false
+  - name: stressor_t5_tm
+    class: org.yamcs.tctm.UdpTmDataLink
+    port: 9905
+    maxLength: 256
+    stream: "tm_stressor_t5"
+    packetPreprocessorClassName: org.yamcs.pus.PusPacketPreprocessor
+    packetPreprocessorArgs:
+      errorDetection:
+        type: CRC-16-CCIIT
+      pktTimeOffset: 13
+      timePktTimeOffset: 7
+      timeEncoding:
+        type: CUC
+        epoch: CUSTOM
+        epochUTC: "1958-01-01T00:00:00Z"
+        timeIncludesLeapSeconds: false
+  - name: stressor_t6_tm
+    class: org.yamcs.tctm.UdpTmDataLink
+    port: 9906
+    maxLength: 256
+    stream: "tm_stressor_t6"
+    packetPreprocessorClassName: org.yamcs.pus.PusPacketPreprocessor
+    packetPreprocessorArgs:
+      errorDetection:
+        type: CRC-16-CCIIT
+      pktTimeOffset: 13
+      timePktTimeOffset: 7
+      timeEncoding:
+        type: CUC
+        epoch: CUSTOM
+        epochUTC: "1958-01-01T00:00:00Z"
+        timeIncludesLeapSeconds: false
+  - name: stressor_t7_tm
+    class: org.yamcs.tctm.UdpTmDataLink
+    port: 9907
+    maxLength: 256
+    stream: "tm_stressor_t7"
+    packetPreprocessorClassName: org.yamcs.pus.PusPacketPreprocessor
+    packetPreprocessorArgs:
+      errorDetection:
+        type: CRC-16-CCIIT
+      pktTimeOffset: 13
+      timePktTimeOffset: 7
+      timeEncoding:
+        type: CUC
+        epoch: CUSTOM
+        epochUTC: "1958-01-01T00:00:00Z"
+        timeIncludesLeapSeconds: false
+mdb:
+  - type: xtce
+    args:
+      file: /opt/yamcs/mdb/StressorThread.xml
+  # - type: xtce
+  #   args:
+  #     file: /opt/yamcs/mdb/StressorThread1.xml
+# Configuration for streams created at server startup
+streamConfig:
+  tm:
+    - name: "tm_stressor_t0"
+      processor: "realtime"
+      rootContainer: "/StressorThread/CCSDSPrimaryHeader"
+    - name: "tm_stressor_t1"
+      processor: "realtime"
+      rootContainer: "/StressorThread/CCSDSPrimaryHeader"
+    - name: "tm_stressor_t2"
+      processor: "realtime"
+      rootContainer: "/StressorThread/CCSDSPrimaryHeader"
+    - name: "tm_stressor_t3"
+      processor: "realtime"
+      rootContainer: "/StressorThread/CCSDSPrimaryHeader"
+    - name: "tm_stressor_t4"
+      processor: "realtime"
+      rootContainer: "/StressorThread/CCSDSPrimaryHeader"
+    - name: "tm_stressor_t5"
+      processor: "realtime"
+      rootContainer: "/StressorThread/CCSDSPrimaryHeader"
+    - name: "tm_stressor_t6"
+      processor: "realtime"
+      rootContainer: "/StressorThread/CCSDSPrimaryHeader"
+    - name: "tm_stressor_t7"
+      processor: "realtime"
+      rootContainer: "/StressorThread/CCSDSPrimaryHeader"
+    - name: tm_dump
+  cmdHist:
+    - cmdhist_realtime
+    - cmdhist_dump
+  event:
+    - events_realtime
+    - events_dump
+  param:
+    - pp_realtime
+    - sys_param
+    - proc_param
+    - pp_tse
+  parameterAlarm:
+    - alarms_realtime
+  eventAlarm:
+    - event_alarms_realtime

@@ -1,0 +1,48 @@
+realtime:
+  services:
+    - class: org.yamcs.StreamTmPacketProvider
+      args:
+        streams:
+          - tm_stressor_t0
+          - tm_stressor_t1
+          - tm_stressor_t2
+          - tm_stressor_t3
+          - tm_stressor_t4
+          - tm_stressor_t5
+          - tm_stressor_t6
+          - tm_stressor_t7
+    # - class: org.yamcs.StreamTcCommandReleaser
+    - class: org.yamcs.tctm.StreamParameterProvider
+      args:
+        streams: ["pp_realtime", "sys_param", "proc_param", "pp_tse"]
+    - class: org.yamcs.algorithms.AlgorithmManager
+    - class: org.yamcs.parameter.LocalParameterManager
+  config:
+    subscribeAll: true
+    recordInitialValues: true
+    recordLocalValues: true
+    persistParameters: true
+    maxTcSize: 4096
+    alarm:
+      parameterCheck: true
+      parameterServer: enabled
+      eventServer: enabled
+    tmProcessor:
+      ignoreOutOfContainerEntries: false
+# Used to perform step-by-step archive replays to displays, etc
+Archive:
+  services:
+    - class: org.yamcs.tctm.ReplayService
+    - class: org.yamcs.algorithms.AlgorithmManager
+# Used by the ParameterArchive when rebuilding the parameter archive
+ParameterArchive:
+  services:
+    - class: org.yamcs.tctm.ReplayService
+    - class: org.yamcs.algorithms.AlgorithmManager
+# Used for performing archive retrievals via replays (e.g. GET /api/archive/{instance}/parameters/{name*}?source=replay)
+ArchiveRetrieval:
+  services:
+    - class: org.yamcs.tctm.ReplayService
+    - class: org.yamcs.algorithms.AlgorithmManager
+  config:
+    subscribeContainerArchivePartitions: false

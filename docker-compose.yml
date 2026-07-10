@@ -1,0 +1,23 @@
+#
+# Auto-generated
+#
+services:
+  rdx-yamcs-server:
+    container_name: "rdx-yamcs-stress-tester"
+    stop_signal: SIGINT
+    stop_grace_period: 4s
+    restart: "always"
+    image: "git.reactiondynamics.space:5050/docker/yamcs_tools:rdx1.0.0"
+    command: /avionics/fsw/run.sh
+    environment:
+      - RDX_HUMAN_UID=5000
+      - RDX_HUMAN_GID=5000
+      - RDX_HUMAN_UNAME=rdx
+      - RDX_HUMAN_GNAME=rdx
+    network_mode: "host"
+    volumes:
+      - .:/avionics/fsw
+    ulimits:
+      rtprio: 99
+    cap_add:
+      - SYS_NICE

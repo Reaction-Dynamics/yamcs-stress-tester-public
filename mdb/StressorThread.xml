@@ -1,0 +1,1048 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpaceSystem
+    xmlns="http://www.omg.org/spec/XTCE/20180204"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.omg.org/spec/XTCE/20180204 https://www.omg.org/spec/XTCE/20180204/SpaceSystem.xsd"
+    name="StressorThread">
+
+  <TelemetryMetaData>
+
+    <ParameterTypeSet>
+
+      <!-- ================= CCSDS PRIMARY HEADER ================= -->
+
+      <IntegerParameterType name="ccsds_version_t" signed="false" sizeInBits="3">
+        <IntegerDataEncoding sizeInBits="3" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="ccsds_type_t" signed="false" sizeInBits="1">
+        <IntegerDataEncoding sizeInBits="1" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="ccsds_sechdrflag_t" signed="false" sizeInBits="1">
+        <IntegerDataEncoding sizeInBits="1" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="ccsds_apid_t" signed="false" sizeInBits="11">
+        <IntegerDataEncoding sizeInBits="11" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="ccsds_seqflags_t" signed="false" sizeInBits="2">
+        <IntegerDataEncoding sizeInBits="2" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="ccsds_seqcount_t" signed="false" sizeInBits="14">
+        <IntegerDataEncoding sizeInBits="14" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="ccsds_length_t" signed="false" sizeInBits="16">
+        <IntegerDataEncoding sizeInBits="16" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <!-- ================= PUS HEADER ================= -->
+
+      <IntegerParameterType name="pus_version_t" signed="false" sizeInBits="4">
+        <IntegerDataEncoding sizeInBits="4" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="pus_timeref_t" signed="false" sizeInBits="4">
+        <IntegerDataEncoding sizeInBits="4" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="pus_service_t" signed="false" sizeInBits="8">
+        <IntegerDataEncoding sizeInBits="8" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="pus_subservice_t" signed="false" sizeInBits="8">
+        <IntegerDataEncoding sizeInBits="8" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="pus_msgcount_t" signed="false" sizeInBits="16">
+        <IntegerDataEncoding sizeInBits="16" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="pus_destid_t" signed="false" sizeInBits="16">
+        <IntegerDataEncoding sizeInBits="16" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <!-- ================= CUC TIME ================= -->
+
+      <!-- P-field (CUC config byte) -->
+      <IntegerParameterType name="cuc_pfield_t" signed="false" sizeInBits="8">
+        <IntegerDataEncoding sizeInBits="8" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <!-- Seconds+fraction since 1958 epoch -->
+      <AbsoluteTimeParameterType name="cuc_time_t">
+        <Encoding units="seconds" scale="1.52587890625E-5">
+          <IntegerDataEncoding sizeInBits="48" encoding="unsigned"/>
+        </Encoding>
+        <ReferenceTime>
+          <Epoch>1958-01-01T00:00:00Z</Epoch>
+        </ReferenceTime>
+      </AbsoluteTimeParameterType>
+
+      <!-- ================= USER DATA ================= -->
+      <IntegerParameterType name="entry_id_t" signed="false" sizeInBits="8">
+        <IntegerDataEncoding sizeInBits="8" encoding="unsigned"/>
+      </IntegerParameterType>
+
+      <IntegerParameterType name="measurement_t" signed="false" sizeInBits="16">
+        <IntegerDataEncoding sizeInBits="16" encoding="unsigned"/>
+      </IntegerParameterType>
+
+    </ParameterTypeSet>
+
+    <ParameterSet>
+
+      <!-- CCSDS header -->
+      <Parameter name="CCSDS_Version" parameterTypeRef="ccsds_version_t"/>
+      <Parameter name="CCSDS_Type" parameterTypeRef="ccsds_type_t"/>
+      <Parameter name="CCSDS_SecHdrFlag" parameterTypeRef="ccsds_sechdrflag_t"/>
+      <Parameter name="CCSDS_APID" parameterTypeRef="ccsds_apid_t"/>
+      <Parameter name="CCSDS_SeqFlags" parameterTypeRef="ccsds_seqflags_t"/>
+      <Parameter name="CCSDS_SeqCount" parameterTypeRef="ccsds_seqcount_t"/>
+      <Parameter name="CCSDS_PacketDataLength" parameterTypeRef="ccsds_length_t"/>
+
+      <!-- PUS header -->
+      <Parameter name="PUS_Version" parameterTypeRef="pus_version_t"/>
+      <Parameter name="PUS_TimeRefStatus" parameterTypeRef="pus_timeref_t"/>
+      <Parameter name="PUS_ServiceType" parameterTypeRef="pus_service_t"/>
+      <Parameter name="PUS_ServiceSubtype" parameterTypeRef="pus_subservice_t"/>
+      <Parameter name="PUS_MessageTypeCounter" parameterTypeRef="pus_msgcount_t"/>
+      <Parameter name="PUS_DestinationID" parameterTypeRef="pus_destid_t"/>
+
+      <!-- CUC TIME (STRUCTURAL MODEL) -->
+      <Parameter name="PUS_CUC_PField" parameterTypeRef="cuc_pfield_t"/>
+      <Parameter name="PUS_CUC_Time" parameterTypeRef="cuc_time_t"/>
+
+      <!-- USER DATA -->
+      <Parameter name="EntryID" parameterTypeRef="entry_id_t"/>
+
+      <Parameter name="Measurement0-0" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-1" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-2" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-3" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-4" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-5" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-6" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-7" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-8" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-9" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-A" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-B" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-C" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-D" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-E" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement0-F" parameterTypeRef="measurement_t"/>
+
+      <Parameter name="Measurement1-0" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-1" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-2" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-3" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-4" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-5" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-6" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-7" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-8" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-9" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-A" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-B" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-C" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-D" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-E" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement1-F" parameterTypeRef="measurement_t"/>
+
+      <Parameter name="Measurement2-0" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-1" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-2" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-3" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-4" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-5" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-6" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-7" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-8" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-9" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-A" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-B" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-C" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-D" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-E" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement2-F" parameterTypeRef="measurement_t"/>
+
+      <Parameter name="Measurement3-0" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-1" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-2" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-3" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-4" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-5" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-6" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-7" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-8" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-9" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-A" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-B" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-C" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-D" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-E" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement3-F" parameterTypeRef="measurement_t"/>
+
+      <Parameter name="Measurement4-0" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-1" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-2" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-3" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-4" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-5" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-6" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-7" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-8" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-9" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-A" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-B" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-C" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-D" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-E" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement4-F" parameterTypeRef="measurement_t"/>
+
+      <Parameter name="Measurement5-0" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-1" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-2" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-3" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-4" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-5" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-6" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-7" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-8" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-9" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-A" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-B" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-C" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-D" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-E" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement5-F" parameterTypeRef="measurement_t"/>
+
+      <Parameter name="Measurement6-0" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-1" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-2" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-3" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-4" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-5" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-6" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-7" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-8" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-9" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-A" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-B" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-C" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-D" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-E" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement6-F" parameterTypeRef="measurement_t"/>
+
+      <Parameter name="Measurement7-0" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-1" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-2" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-3" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-4" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-5" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-6" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-7" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-8" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-9" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-A" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-B" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-C" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-D" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-E" parameterTypeRef="measurement_t"/>
+      <Parameter name="Measurement7-F" parameterTypeRef="measurement_t"/>
+
+    </ParameterSet>
+
+    <ContainerSet>
+
+      <!-- CCSDS PRIMARY HEADER -->
+      <SequenceContainer name="CCSDSPrimaryHeader" abstract="true">
+        <EntryList>
+          <ParameterRefEntry parameterRef="CCSDS_Version"/>
+          <ParameterRefEntry parameterRef="CCSDS_Type"/>
+          <ParameterRefEntry parameterRef="CCSDS_SecHdrFlag"/>
+          <ParameterRefEntry parameterRef="CCSDS_APID"/>
+          <ParameterRefEntry parameterRef="CCSDS_SeqFlags"/>
+          <ParameterRefEntry parameterRef="CCSDS_SeqCount"/>
+          <ParameterRefEntry parameterRef="CCSDS_PacketDataLength"/>
+        </EntryList>
+      </SequenceContainer>
+
+      <!-- PUS HEADER + CUC TIME -->
+      <SequenceContainer name="PUSTMSecondaryHeader">
+        <EntryList>
+          <ParameterRefEntry parameterRef="PUS_Version"/>
+          <ParameterRefEntry parameterRef="PUS_TimeRefStatus"/>
+          <ParameterRefEntry parameterRef="PUS_ServiceType"/>
+          <ParameterRefEntry parameterRef="PUS_ServiceSubtype"/>
+          <ParameterRefEntry parameterRef="PUS_MessageTypeCounter"/>
+          <ParameterRefEntry parameterRef="PUS_DestinationID"/>
+
+          <!-- CUC TIME -->
+          <ParameterRefEntry parameterRef="PUS_CUC_PField"/>
+          <ParameterRefEntry parameterRef="PUS_CUC_Time"/>
+        </EntryList>
+
+        <BaseContainer containerRef="CCSDSPrimaryHeader"/>
+      </SequenceContainer>
+
+      <!-- THREAD T0 : APID 100 -->
+      <SequenceContainer name="T0">
+        <EntryList>
+        <ParameterRefEntry parameterRef="EntryID"/>
+
+        <ParameterRefEntry parameterRef="Measurement0-0">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="0"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-1">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="1"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-2">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="2"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-3">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="3"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-4">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="4"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-5">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="5"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-6">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="6"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-7">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="7"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-8">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="8"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-9">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="9"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-A">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="10"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-B">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="11"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-C">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="12"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-D">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="13"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-E">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="14"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement0-F">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="15"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        </EntryList>
+
+        <BaseContainer containerRef="PUSTMSecondaryHeader">
+          <RestrictionCriteria>
+            <Comparison parameterRef="CCSDS_APID" comparisonOperator="==" value="100"/>
+          </RestrictionCriteria>
+        </BaseContainer>
+      </SequenceContainer>
+
+      <!-- THREAD T1 : APID 101 -->
+      <SequenceContainer name="T1">
+        <EntryList>
+        <ParameterRefEntry parameterRef="EntryID"/>
+
+        <ParameterRefEntry parameterRef="Measurement1-0">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="0"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-1">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="1"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-2">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="2"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-3">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="3"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-4">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="4"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-5">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="5"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-6">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="6"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-7">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="7"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-8">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="8"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-9">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="9"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-A">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="10"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-B">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="11"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-C">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="12"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-D">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="13"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-E">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="14"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement1-F">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="15"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        </EntryList>
+
+        <BaseContainer containerRef="PUSTMSecondaryHeader">
+          <RestrictionCriteria>
+            <Comparison parameterRef="CCSDS_APID" comparisonOperator="==" value="101"/>
+          </RestrictionCriteria>
+        </BaseContainer>
+      </SequenceContainer>
+
+      <!-- THREAD T2 : APID 102 -->
+      <SequenceContainer name="T2">
+        <EntryList>
+        <ParameterRefEntry parameterRef="EntryID"/>
+
+        <ParameterRefEntry parameterRef="Measurement2-0">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="0"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-1">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="1"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-2">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="2"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-3">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="3"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-4">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="4"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-5">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="5"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-6">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="6"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-7">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="7"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-8">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="8"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-9">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="9"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-A">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="10"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-B">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="11"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-C">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="12"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-D">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="13"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-E">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="14"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement2-F">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="15"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        </EntryList>
+
+        <BaseContainer containerRef="PUSTMSecondaryHeader">
+          <RestrictionCriteria>
+            <Comparison parameterRef="CCSDS_APID" comparisonOperator="==" value="102"/>
+          </RestrictionCriteria>
+        </BaseContainer>
+      </SequenceContainer>
+
+      <!-- THREAD T3 : APID 103 -->
+      <SequenceContainer name="T3">
+        <EntryList>
+        <ParameterRefEntry parameterRef="EntryID"/>
+
+        <ParameterRefEntry parameterRef="Measurement3-0">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="0"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-1">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="1"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-2">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="2"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-3">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="3"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-4">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="4"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-5">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="5"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-6">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="6"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-7">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="7"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-8">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="8"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-9">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="9"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-A">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="10"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-B">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="11"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-C">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="12"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-D">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="13"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-E">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="14"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement3-F">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="15"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        </EntryList>
+
+        <BaseContainer containerRef="PUSTMSecondaryHeader">
+          <RestrictionCriteria>
+            <Comparison parameterRef="CCSDS_APID" comparisonOperator="==" value="103"/>
+          </RestrictionCriteria>
+        </BaseContainer>
+      </SequenceContainer>
+
+      <!-- THREAD T4 : APID 104 -->
+      <SequenceContainer name="T4">
+        <EntryList>
+        <ParameterRefEntry parameterRef="EntryID"/>
+
+        <ParameterRefEntry parameterRef="Measurement4-0">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="0"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-1">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="1"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-2">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="2"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-3">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="3"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-4">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="4"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-5">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="5"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-6">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="6"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-7">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="7"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-8">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="8"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-9">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="9"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-A">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="10"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-B">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="11"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-C">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="12"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-D">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="13"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-E">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="14"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement4-F">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="15"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        </EntryList>
+
+        <BaseContainer containerRef="PUSTMSecondaryHeader">
+          <RestrictionCriteria>
+            <Comparison parameterRef="CCSDS_APID" comparisonOperator="==" value="104"/>
+          </RestrictionCriteria>
+        </BaseContainer>
+      </SequenceContainer>
+
+      <!-- THREAD T5 : APID 105 -->
+      <SequenceContainer name="T5">
+        <EntryList>
+        <ParameterRefEntry parameterRef="EntryID"/>
+
+        <ParameterRefEntry parameterRef="Measurement5-0">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="0"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-1">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="1"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-2">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="2"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-3">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="3"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-4">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="4"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-5">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="5"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-6">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="6"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-7">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="7"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-8">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="8"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-9">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="9"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-A">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="10"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-B">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="11"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-C">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="12"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-D">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="13"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-E">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="14"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement5-F">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="15"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        </EntryList>
+
+        <BaseContainer containerRef="PUSTMSecondaryHeader">
+          <RestrictionCriteria>
+            <Comparison parameterRef="CCSDS_APID" comparisonOperator="==" value="105"/>
+          </RestrictionCriteria>
+        </BaseContainer>
+      </SequenceContainer>
+
+      <!-- THREAD T6 : APID 106 -->
+      <SequenceContainer name="T6">
+        <EntryList>
+        <ParameterRefEntry parameterRef="EntryID"/>
+
+        <ParameterRefEntry parameterRef="Measurement6-0">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="0"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-1">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="1"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-2">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="2"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-3">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="3"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-4">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="4"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-5">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="5"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-6">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="6"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-7">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="7"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-8">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="8"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-9">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="9"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-A">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="10"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-B">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="11"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-C">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="12"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-D">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="13"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-E">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="14"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement6-F">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="15"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        </EntryList>
+
+        <BaseContainer containerRef="PUSTMSecondaryHeader">
+          <RestrictionCriteria>
+            <Comparison parameterRef="CCSDS_APID" comparisonOperator="==" value="106"/>
+          </RestrictionCriteria>
+        </BaseContainer>
+      </SequenceContainer>
+
+      <!-- THREAD T7 : APID 107 -->
+      <SequenceContainer name="T7">
+        <EntryList>
+        <ParameterRefEntry parameterRef="EntryID"/>
+
+        <ParameterRefEntry parameterRef="Measurement7-0">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="0"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-1">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="1"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-2">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="2"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-3">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="3"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-4">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="4"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-5">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="5"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-6">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="6"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-7">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="7"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-8">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="8"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-9">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="9"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-A">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="10"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-B">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="11"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-C">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="12"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-D">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="13"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-E">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="14"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        <ParameterRefEntry parameterRef="Measurement7-F">
+          <IncludeCondition>
+            <Comparison parameterRef="EntryID" comparisonOperator="==" value="15"/>
+          </IncludeCondition>
+        </ParameterRefEntry>
+        </EntryList>
+
+        <BaseContainer containerRef="PUSTMSecondaryHeader">
+          <RestrictionCriteria>
+            <Comparison parameterRef="CCSDS_APID" comparisonOperator="==" value="107"/>
+          </RestrictionCriteria>
+        </BaseContainer>
+      </SequenceContainer>
+
+    </ContainerSet>
+
+  </TelemetryMetaData>
+</SpaceSystem>
