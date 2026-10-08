@@ -42,3 +42,6 @@ stress-7000:
 
 stress-8000:
 	sudo .venv/bin/python3 ./stressor.py --pkt-rate-hz 1000 --num-stressors 8
+
+stress-16000:
+	sudo .venv/bin/python3 ./stressor.py --pkt-rate-hz 2000 --num-stressors 8
