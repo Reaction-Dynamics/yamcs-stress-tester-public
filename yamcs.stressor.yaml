@@ -35,7 +35,7 @@ services:
         sortingThreshold: 60000  # 60 seconds in milliseconds
         flushInterval: 300
       backFiller:
-        enabled: true
+        enabled: false
         warmupTime: 10
         streamUpdateFillPolicy:
           - dataAge: 0
