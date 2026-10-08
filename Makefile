@@ -13,6 +13,9 @@ restart-yamcs: stop-yamcs start-yamcs
 watch-for-rx-drops:
 	./watch-for-rx-drops.sh
 
+watch-socket-buf-fill-levels:
+	uv run ./watch-socket-buf-fill.py -i 0.25 udp:9900 udp:9901 udp:9902 udp:9903 udp:9904 udp:9905 udp:9906 udp:9907 --nice 20
+
 stress-1:
 	sudo .venv/bin/python3 ./stressor.py --pkt-rate-hz 1 --num-stressors 1
 
