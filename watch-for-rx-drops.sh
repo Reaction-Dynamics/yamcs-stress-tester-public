@@ -3,7 +3,7 @@
 # Flags any increment with a timestamp, plus the receive-buffer fill at that moment.
 
 PORTS=(9900 9901 9902 9903 9904 9905 9906 9907)
-INTERVAL=0.250            # seconds between polls
+INTERVAL=0.50            # seconds between polls
 
 declare -A prev
 
